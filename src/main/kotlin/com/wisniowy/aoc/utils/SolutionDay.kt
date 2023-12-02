@@ -14,4 +14,11 @@ abstract class SolutionDay(val dayNumber: Int) {
 
     abstract fun partTwo() : Any
 
+    protected fun inputAsString() : String {
+        return FileReader.inputAsString(file)
+    }
+
+    protected fun inputAsStringList(): List<String> {
+        return FileReader.inputAsStringList(file)
+    }
 }
