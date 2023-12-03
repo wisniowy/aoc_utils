@@ -8,8 +8,9 @@ class Map2D<E> {
         )
 
         private val ADJACENCY_DIRECTIONS_DIAGONALLY = listOf(
-            Point2D(-1, 0), Point2D(-1, -1), Point2D(0, -1), Point2D(1, -1),
-            Point2D(1, 0), Point2D(1, 1), Point2D(0, 1), Point2D(-1, 1),
+            Point2D(-1, 1), Point2D(0, 1), Point2D(1, 1),
+            Point2D(-1, -1), Point2D(0, -1), Point2D(1, -1),
+            Point2D(-1, 0), Point2D(1, 0)
         )
 
         fun <E> fromString(s: String): Map2D<E> {
