@@ -37,13 +37,6 @@ class Map2D<E> {
     fun getPoint(point2D: Point2D): E {
         return points[point2D] ?: throw IllegalArgumentException("Point does not exist")
     }
-    fun getWidth(): Int {
-        return width
-    }
-
-    fun getHeight(): Int {
-        return height
-    }
 
     fun getAdjacentPoints(point: Point2D, diagonally: Boolean = false) : List<Point2D> {
         return if (diagonally) {
@@ -53,5 +46,18 @@ class Map2D<E> {
             ADJACENCY_DIRECTIONS.map { adjacentPoint -> adjacentPoint + point }
                 .filter { point2D -> point.x < width && point.y < height }
         }
+    }
+
+    override fun toString(): String {
+        val stringBuilder = StringBuilder()
+
+        (0..< height).forEach { y ->
+            (0..< width).forEach { x ->
+                stringBuilder.append(points[Point2D(x, y)])
+            }
+            stringBuilder.append("\n")
+        }
+
+        return stringBuilder.toString()
     }
 }
