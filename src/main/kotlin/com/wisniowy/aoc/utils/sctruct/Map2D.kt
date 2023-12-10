@@ -15,11 +15,11 @@ class Map2D<E> {
 
 
     companion object {
-        private val ADJACENCY_DIRECTIONS = listOf(
+        val ADJACENCY_DIRECTIONS = listOf(
            AdjacencyDirections.NORTH, AdjacencyDirections.EAST, AdjacencyDirections.SOUTH, AdjacencyDirections.WEST
         )
 
-        private val ADJACENCY_DIRECTIONS_DIAGONALLY = AdjacencyDirections.entries.toList()
+        val ADJACENCY_DIRECTIONS_DIAGONALLY = AdjacencyDirections.entries.toList()
 
         fun <E> fromString(s: String): Map2D<E> {
             val map2d = Map2D<E>()
@@ -43,8 +43,8 @@ class Map2D<E> {
         height = maxOf(point.y + 1, height)
     }
 
-    fun getPoint(point2D: Point2D): E {
-        return points[point2D] ?: throw IllegalArgumentException("Point does not exist")
+    fun getPoint(point2D: Point2D): E? {
+        return points[point2D]
     }
 
     fun getAdjacentPoints(point: Point2D, diagonally: Boolean = false) : List<Point2D> {
