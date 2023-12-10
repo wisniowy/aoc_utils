@@ -2,21 +2,29 @@ package com.wisniowy.aoc.utils.sctruct
 
 class Map2D<E> {
 
+    enum class AdjacencyDirections(val vector: Vector2D) {
+        NORTH(Vector2D(0, 1)),
+        NORTH_EAST(Vector2D(1, 1)),
+        EAST(Vector2D(1, 0)),
+        SOUTH_EAST(Vector2D(1, -1)),
+        SOUTH(Vector2D(0, -1)),
+        SOUTH_WEST(Vector2D(-1, -1)),
+        WEST(Vector2D(-1, 0)),
+        NORTH_WEST(Vector2D(-1, 1))
+    }
+
+
     companion object {
         private val ADJACENCY_DIRECTIONS = listOf(
-            Point2D(-1, 0), Point2D(1, 0 ), Point2D(0, -1), Point2D(0, 1)
+           AdjacencyDirections.NORTH, AdjacencyDirections.EAST, AdjacencyDirections.SOUTH, AdjacencyDirections.WEST
         )
 
-        private val ADJACENCY_DIRECTIONS_DIAGONALLY = listOf(
-            Point2D(-1, 1), Point2D(0, 1), Point2D(1, 1),
-            Point2D(-1, -1), Point2D(0, -1), Point2D(1, -1),
-            Point2D(-1, 0), Point2D(1, 0)
-        )
+        private val ADJACENCY_DIRECTIONS_DIAGONALLY = AdjacencyDirections.entries.toList()
 
         fun <E> fromString(s: String): Map2D<E> {
             val map2d = Map2D<E>()
 
-            s.lines().forEachIndexed { y, line -> line.forEachIndexed { x, value ->
+            s.lines().reversed().forEachIndexed { y, line -> line.forEachIndexed { x, value ->
                 map2d.addPoint(Point2D(x, y), value as E)
             } }
 
@@ -41,10 +49,10 @@ class Map2D<E> {
 
     fun getAdjacentPoints(point: Point2D, diagonally: Boolean = false) : List<Point2D> {
         return if (diagonally) {
-            ADJACENCY_DIRECTIONS_DIAGONALLY.map { adjacentPoint -> adjacentPoint + point }
+            ADJACENCY_DIRECTIONS_DIAGONALLY.map { adjacencyDirection -> point + adjacencyDirection.vector }
                 .filter { point2D -> point.x < width && point.y < height }
         } else {
-            ADJACENCY_DIRECTIONS.map { adjacentPoint -> adjacentPoint + point }
+            ADJACENCY_DIRECTIONS.map { adjacencyDirection -> point + adjacencyDirection.vector }
                 .filter { point2D -> point.x < width && point.y < height }
         }
     }
