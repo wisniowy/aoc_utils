@@ -16,7 +16,7 @@ class Map2D<E> {
 
     companion object {
         val ADJACENCY_DIRECTIONS = listOf(
-           AdjacencyDirections.NORTH, AdjacencyDirections.EAST, AdjacencyDirections.SOUTH, AdjacencyDirections.WEST
+            AdjacencyDirections.NORTH, AdjacencyDirections.EAST, AdjacencyDirections.SOUTH, AdjacencyDirections.WEST
         )
 
         val ADJACENCY_DIRECTIONS_DIAGONALLY = AdjacencyDirections.entries.toList()
@@ -32,15 +32,18 @@ class Map2D<E> {
         }
     }
 
-    val points: MutableMap<Point2D, E> = mutableMapOf()
-
-    var width: Int = 0
-    var height: Int = 0
+    private val points: MutableMap<Point2D, E> = mutableMapOf()
+    private var width: Int = 0
+    private var height: Int = 0
 
     fun addPoint(point: Point2D, e: E) {
         points[point] = e
         width = maxOf(point.x + 1, width)
         height = maxOf(point.y + 1, height)
+    }
+
+    fun getPoints(): Map<Point2D, E> {
+        return points
     }
 
     fun getPoint(point2D: Point2D): E? {
